@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,5 +41,20 @@ public class ReservationRestController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(reservationFacade.create(reservation));
+    }
+
+    /**
+     * REST method deleting a reservation
+     */
+    @Operation(
+            summary = "Delete reservation",
+            description = "Deletes a reservation based on the id sent in the request.",
+            responses = {
+                    @ApiResponse(responseCode = "204"),
+            })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long reservationId) {
+        reservationFacade.deleteById(reservationId);
+        return ResponseEntity.noContent().build();
     }
 }

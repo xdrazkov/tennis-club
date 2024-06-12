@@ -21,4 +21,8 @@ public class ReservationFacade {
     public ReservationSimpleViewDto create(ReservationCreateDto reservation) {
         return reservationMapper.mapToSimpleViewDto(reservationService.create(reservationMapper.mapFromCreate(reservation), reservation.getCustomerPhone(), reservation.getCustomerName()));
     }
+
+    public void deleteById(Long id) {
+        reservationService.deleteById(id);
+    }
 }

@@ -25,4 +25,9 @@ public class ReservationService {
         reservation.setCustomer(customer);
         return reservationDao.save(reservation);
     }
+
+    @Transactional
+    public void deleteById(Long id) {
+        reservationDao.deleteById(id);
+    }
 }
