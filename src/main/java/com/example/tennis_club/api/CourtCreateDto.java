@@ -5,8 +5,8 @@ import lombok.Setter;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Getter @Setter
-@Schema(name = "CourtDTO", description = "Represents a court")
-public class CourtDto {
+@Schema(name = "CourtCreateDTO", description = "Represents a court")
+public class CourtCreateDto {
 
     @Schema(description = "Court ID", example = "1")
     private Long id;
