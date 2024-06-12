@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -102,5 +103,20 @@ public class CourtRestController {
     @PutMapping("/{id}")
     public ResponseEntity<CourtViewDto> updateRecord(@PathVariable("id") Long courtId, @RequestBody CourtCreateDto court) {
         return ResponseEntity.ok(courtFacade.updateRecord(courtId, court));
+    }
+
+    /**
+     * REST method deleting a court
+     */
+    @Operation(
+            summary = "Delete court",
+            description = "Deletes a court based on the id sent in the request.",
+            responses = {
+                    @ApiResponse(responseCode = "204"),
+            })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteRecord(@PathVariable("id") Long courtId) {
+        courtFacade.deleteById(courtId);
+        return ResponseEntity.noContent().build();
     }
 }

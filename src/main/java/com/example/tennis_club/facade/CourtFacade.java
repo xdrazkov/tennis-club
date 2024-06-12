@@ -38,4 +38,8 @@ public class CourtFacade {
         newRecordEntity.setId(courtId);
         return courtMapper.mapToDto(courtService.update(newRecordEntity));
     }
+
+    public void deleteById(Long id) {
+        courtService.deleteById(id);
+    }
 }
