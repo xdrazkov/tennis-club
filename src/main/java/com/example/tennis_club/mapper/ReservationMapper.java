@@ -8,6 +8,8 @@ import com.example.tennis_club.service.ReservationService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = {ReservationService.class, CourtService.class})
 public interface ReservationMapper {
 
@@ -15,4 +17,6 @@ public interface ReservationMapper {
     Reservation mapFromCreate(ReservationCreateDto reservation);
 
     ReservationSimpleViewDto mapToSimpleViewDto(Reservation reservation);
+
+    List<ReservationSimpleViewDto> mapToList(List<Reservation> courts);
 }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class ReservationService {
     private final ReservationDao reservationDao;
@@ -24,6 +26,11 @@ public class ReservationService {
         Customer customer = customerDao.getByPhoneNumber(customerPhone, customerName);
         reservation.setCustomer(customer);
         return reservationDao.save(reservation);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Reservation> findAll() {
+        return reservationDao.findAll();
     }
 
     @Transactional

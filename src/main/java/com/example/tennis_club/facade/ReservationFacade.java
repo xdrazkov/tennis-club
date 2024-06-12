@@ -7,6 +7,8 @@ import com.example.tennis_club.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReservationFacade {
     private final ReservationService reservationService;
@@ -20,6 +22,10 @@ public class ReservationFacade {
 
     public ReservationSimpleViewDto create(ReservationCreateDto reservation) {
         return reservationMapper.mapToSimpleViewDto(reservationService.create(reservationMapper.mapFromCreate(reservation), reservation.getCustomerPhone(), reservation.getCustomerName()));
+    }
+
+    public List<ReservationSimpleViewDto> findAll() {
+        return reservationMapper.mapToList(reservationService.findAll());
     }
 
     public void deleteById(Long id) {
