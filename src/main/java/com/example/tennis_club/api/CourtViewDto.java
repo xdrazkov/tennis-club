@@ -18,9 +18,9 @@ public class CourtViewDto {
     private String name;
 
     // TODO add surfaceTypeViewDto
-    @Schema(description = "ID of surface type of the court", example = "1")
-    private Long surfaceType;
-
+//    @Schema(description = "ID of surface type of the court", example = "1")
+//    private Long surfaceType;
+//
     // TODO add reservationViewDto
-    private List<Long> reservations;
+//    private List<Long> reservations;
 }
