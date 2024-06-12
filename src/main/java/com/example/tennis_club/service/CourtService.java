@@ -28,12 +28,18 @@ public class CourtService {
     }
 
     @Transactional
-    public Court createRecord(Court court) {
+    public Court create(Court court) {
         return courtDao.save(court);
     }
 
     @Transactional
     public void deleteById(Long id) {
         courtDao.deleteById(id);
+    }
+
+    @Transactional
+    public Court update(Court court) {
+        courtDao.save(court);
+        return findById(court.getId());
     }
 }

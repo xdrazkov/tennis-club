@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -85,5 +86,21 @@ public class CourtRestController {
     @GetMapping("/{id}")
     public ResponseEntity<CourtViewDto> findById(@PathVariable("id") Long courtId) {
         return ResponseEntity.ok(courtFacade.findById(courtId));
+    }
+
+    /**
+     * REST method updating a court
+     */
+    @Operation(
+            summary = "Update court",
+            description = """
+                    Updates a court based on the body sent in the request. 
+                    Returns the updated court as its response""",
+            responses = {
+                    @ApiResponse(responseCode = "200"),
+            })
+    @PutMapping("/{id}")
+    public ResponseEntity<CourtViewDto> updateRecord(@PathVariable("id") Long courtId, @RequestBody CourtCreateDto court) {
+        return ResponseEntity.ok(courtFacade.updateRecord(courtId, court));
     }
 }
