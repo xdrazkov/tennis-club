@@ -27,4 +27,8 @@ public class CourtFacade {
     public List<CourtViewDto> findAll() {
         return courtMapper.mapToList(courtService.findAll());
     }
+
+    public CourtViewDto findById(Long id) {
+        return courtMapper.mapToDto(courtService.findById(id));
+    }
 }
