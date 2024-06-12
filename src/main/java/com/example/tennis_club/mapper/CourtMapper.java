@@ -6,10 +6,14 @@ import com.example.tennis_club.data.model.Court;
 import com.example.tennis_club.service.CourtService;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = {CourtService.class})
 public interface CourtMapper {
 
     Court mapFromCreate(CourtCreateDto court);
 
     CourtViewDto mapToDto(Court court);
+
+    List<CourtViewDto> mapToList(List<Court> medicalRecords);
 }

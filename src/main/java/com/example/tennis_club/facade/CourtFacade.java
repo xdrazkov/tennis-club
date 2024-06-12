@@ -7,6 +7,8 @@ import com.example.tennis_club.service.CourtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CourtFacade {
     private final CourtService courtService;
@@ -20,5 +22,9 @@ public class CourtFacade {
 
     public CourtViewDto createRecord(CourtCreateDto medicalRecord) {
         return courtMapper.mapToDto(courtService.createRecord(courtMapper.mapFromCreate(medicalRecord)));
+    }
+
+    public List<CourtViewDto> findAll() {
+        return courtMapper.mapToList(courtService.findAll());
     }
 }
