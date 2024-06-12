@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring", uses = {CourtService.class})
 public interface CourtMapper {
 
-    Court mapToCreate(CourtCreateDto court);
+    Court mapFromCreate(CourtCreateDto court);
 
     CourtViewDto mapToDto(Court court);
 }

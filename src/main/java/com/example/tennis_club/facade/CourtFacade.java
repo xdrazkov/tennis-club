@@ -19,6 +19,6 @@ public class CourtFacade {
     }
 
     public CourtViewDto createRecord(CourtCreateDto medicalRecord) {
-        return courtMapper.mapToDto(courtService.createRecord(courtMapper.mapToCreate(medicalRecord)));
+        return courtMapper.mapToDto(courtService.createRecord(courtMapper.mapFromCreate(medicalRecord)));
     }
 }
