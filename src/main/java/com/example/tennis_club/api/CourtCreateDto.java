@@ -11,7 +11,6 @@ public class CourtCreateDto {
     @Schema(description = "Court name", example = "Court 1")
     private String name;
 
-    // TODO
-//    @Schema(description = "ID of surface type of the court", example = "1")
-//    private Long surfaceTypeId;
+    @Schema(description = "ID of surface type of the court", example = "1")
+    private Long surfaceTypeId;
 }

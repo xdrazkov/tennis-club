@@ -31,7 +31,6 @@ public class SurfaceType {
     @Column(name = "price_per_minute")
     private int pricePerMinute;
 
-    // TODO
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "surfaceType", cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
-//    private List<Court> courts;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "surfaceType", cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Court> courts;
 }

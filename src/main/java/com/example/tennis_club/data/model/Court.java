@@ -30,10 +30,9 @@ public class Court {
     @Column
     private String name;
 
-    // TODO
-//    @ManyToOne(fetch = FetchType.EAGER, optional = true)
-//    @JoinColumn(name = "surface_type_id")
-//    private SurfaceType surfaceType;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "surface_type_id")
+    private SurfaceType surfaceType;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "court", cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     private List<Reservation> reservations;
