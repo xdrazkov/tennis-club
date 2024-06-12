@@ -7,6 +7,8 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @Transactional
 public class CustomerDao {
@@ -17,23 +19,25 @@ public class CustomerDao {
         this.entityManager = entityManager;
     }
 
-    public Customer findByPhoneNumber(String phoneNumber) {
+    public Optional<Customer> findByPhoneNumber(String phoneNumber) {
         TypedQuery<Customer> query = entityManager.createQuery("SELECT c FROM Customer c WHERE c.phoneNumber = :phoneNumber", Customer.class);
         query.setParameter("phoneNumber", phoneNumber);
-        return query.getSingleResult();
+        return query.getResultList().stream().findFirst();
     }
 
+    // TODO
     // Gets the customer & creates a new one if it doesn't exist
     public Customer getByPhoneNumber(String phoneNumber, String name) {
-        Customer customer = findByPhoneNumber(phoneNumber);
-        if (customer == null) {
-            customer = new Customer();
-            customer.setPhoneNumber(phoneNumber);
-            entityManager.persist(customer);
-            return customer;
+        Optional<Customer> customer = findByPhoneNumber(phoneNumber);
+        if (customer.isPresent()) {
+            Customer existingCustomer = customer.get();
+            existingCustomer.setName(name);
+            existingCustomer = entityManager.merge(existingCustomer);
+            return existingCustomer;
         }
-        customer.setName(name);
-        customer = entityManager.merge(customer);
-        return customer;
+        Customer newCcustomer = new Customer();
+        newCcustomer.setPhoneNumber(phoneNumber);
+        entityManager.persist(newCcustomer);
+        return newCcustomer;
     }
 }

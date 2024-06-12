@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.util.List;
-
 @Getter @Setter
 @Schema(name = "CourtViewDTO", description = "Represents a court")
 public class CourtViewDto {
