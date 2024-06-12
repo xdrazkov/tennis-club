@@ -6,8 +6,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Getter @Setter
 @Schema(name = "ReservationCreateDTO", description = "Represents a reservation")
 public class ReservationCreateDto {
 
