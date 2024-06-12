@@ -44,7 +44,7 @@ public class Reservation {
     private boolean isDoubles;
 
     @Column
-    private int cost;
+    private int cost = 0;
 
     @Column
     private LocalDateTime created;

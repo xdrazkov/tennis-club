@@ -21,8 +21,8 @@ public class CourtFacade {
         this.courtMapper = courtMapper;
     }
 
-    public CourtViewDto createRecord(CourtCreateDto medicalRecord) {
-        return courtMapper.mapToDto(courtService.create(courtMapper.mapFromCreate(medicalRecord)));
+    public CourtViewDto create(CourtCreateDto court) {
+        return courtMapper.mapToDto(courtService.create(courtMapper.mapFromCreate(court)));
     }
 
     public List<CourtViewDto> findAll() {
@@ -33,10 +33,10 @@ public class CourtFacade {
         return courtMapper.mapToDto(courtService.findById(id));
     }
 
-    public CourtViewDto updateRecord(Long courtId, CourtCreateDto newRecord) {
-        Court newRecordEntity = courtMapper.mapFromCreate(newRecord);
-        newRecordEntity.setId(courtId);
-        return courtMapper.mapToDto(courtService.update(newRecordEntity));
+    public CourtViewDto update(Long courtId, CourtCreateDto newCourt) {
+        Court newCourtEntity = courtMapper.mapFromCreate(newCourt);
+        newCourtEntity.setId(courtId);
+        return courtMapper.mapToDto(courtService.update(newCourtEntity));
     }
 
     public void deleteById(Long id) {

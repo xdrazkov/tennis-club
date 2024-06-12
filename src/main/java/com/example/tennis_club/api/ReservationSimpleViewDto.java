@@ -9,7 +9,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Schema(name = "ReservationCreateDTO", description = "Represents a reservation")
-public class ReservationCreateDto {
+public class ReservationSimpleViewDto {
+    @Schema(description = "Reservation ID", example = "1")
+    private Long id;
 
     @Schema(description = "Court ID", example = "1")
     private Long courtId;
@@ -23,9 +25,5 @@ public class ReservationCreateDto {
     @Schema(description = "Is doubles game", example = "true")
     private boolean isDoubles;
 
-    @Schema(description = "Phone number of the customer", example = "123456789")
-    private String customerPhone;
-
-    @Schema(description = "Name of the customer", example = "Arthur Dent")
-    private String customerName;
+    // TODO customer field
 }

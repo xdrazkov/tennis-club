@@ -58,10 +58,10 @@ public class CourtRestController {
                     @ApiResponse(responseCode = "201"),
             })
     @PostMapping("/")
-    public ResponseEntity<CourtViewDto> createRecord(@RequestBody CourtCreateDto court) {
+    public ResponseEntity<CourtViewDto> create(@RequestBody CourtCreateDto court) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(courtFacade.createRecord(court));
+                .body(courtFacade.create(court));
     }
 
     /**
@@ -104,8 +104,8 @@ public class CourtRestController {
                     @ApiResponse(responseCode = "200"),
             })
     @PutMapping("/{id}")
-    public ResponseEntity<CourtViewDto> updateRecord(@PathVariable("id") Long courtId, @RequestBody CourtCreateDto court) {
-        return ResponseEntity.ok(courtFacade.updateRecord(courtId, court));
+    public ResponseEntity<CourtViewDto> update(@PathVariable("id") Long courtId, @RequestBody CourtCreateDto court) {
+        return ResponseEntity.ok(courtFacade.update(courtId, court));
     }
 
     /**
@@ -118,7 +118,7 @@ public class CourtRestController {
                     @ApiResponse(responseCode = "204"),
             })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRecord(@PathVariable("id") Long courtId) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long courtId) {
         courtFacade.deleteById(courtId);
         return ResponseEntity.noContent().build();
     }

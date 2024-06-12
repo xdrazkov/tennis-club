@@ -15,5 +15,5 @@ public interface CourtMapper {
 
     CourtViewDto mapToDto(Court court);
 
-    List<CourtViewDto> mapToList(List<Court> medicalRecords);
+    List<CourtViewDto> mapToList(List<Court> courts);
 }
