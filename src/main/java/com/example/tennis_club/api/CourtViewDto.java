@@ -1,6 +1,5 @@
 package com.example.tennis_club.api;
 
-import com.example.tennis_club.data.model.Reservation;
 import lombok.Getter;
 import lombok.Setter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -17,10 +16,6 @@ public class CourtViewDto {
     @Schema(description = "Court name", example = "Court 1")
     private String name;
 
-    // TODO add surfaceTypeViewDto
-//    @Schema(description = "ID of surface type of the court", example = "1")
-//    private Long surfaceType;
-//
-    // TODO add reservationViewDto
-//    private List<Long> reservations;
+    @Schema(description = "Surface type of the court")
+    private SurfaceTypeViewDto surfaceType;
 }

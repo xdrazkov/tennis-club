@@ -16,6 +16,7 @@ public interface CourtMapper {
     @Mapping(source="surfaceTypeId", target="surfaceType")
     Court mapFromCreate(CourtCreateDto court);
 
+    @Mapping(source="surfaceType", target="surfaceType")
     CourtViewDto mapToDto(Court court);
 
     List<CourtViewDto> mapToList(List<Court> courts);
