@@ -1,6 +1,5 @@
 package com.example.tennis_club.data.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,31 +8,51 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "court")
+@Table(name = "reservation")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class Court {
+public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "court_id")
+    @Column(name = "reservation_id")
     private Long id;
 
-    @Column
-    private String name;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "court_id")
+    private Court court;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "surface_type_id")
-    private SurfaceType surfaceType;
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "court", cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Reservation> reservations;
+    @Column
+    private LocalDateTime dateFrom;
+
+    @Column
+    private LocalDateTime dateTo;
+
+    @Column
+    private boolean isDoubles;
+
+    @Column
+    private int cost;
+
+    @Column
+    private LocalDateTime created;
+
+    @PreUpdate
+    public void onPreUpdate() {
+        this.created = LocalDateTime.now();
+    }
 }
+
+

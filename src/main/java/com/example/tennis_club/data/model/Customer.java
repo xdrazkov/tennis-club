@@ -1,4 +1,4 @@
-package com.example.demo.entities;
+package com.example.tennis_club.data.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,4 +22,7 @@ public class Customer {
 
     @Column
     private String phoneNumber;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Reservation> reservations;
 }
