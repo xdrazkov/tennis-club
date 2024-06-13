@@ -65,4 +65,8 @@ public class ReservationService {
     public List<Reservation> findByCourtId(Long courtId) {
         return reservationDao.findByCourtId(courtId);
     }
+
+    public List<Reservation> findByPhoneNumber(String phoneNumber, boolean showFutureOnly) {
+        return reservationDao.findByPhoneNumber(phoneNumber, showFutureOnly);
+    }
 }

@@ -28,4 +28,6 @@ public interface ReservationMapper {
     ReservationDetailedViewDto mapToDetailedViewDto(Reservation reservation);
 
     List<ReservationSimpleViewDto> mapToList(List<Reservation> courts);
+
+    List<ReservationDetailedViewDto> mapToDetailedViewList(List<Reservation> byPhoneNumber);
 }

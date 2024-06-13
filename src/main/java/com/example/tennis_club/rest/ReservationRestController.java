@@ -1,6 +1,7 @@
 package com.example.tennis_club.rest;
 
 import com.example.tennis_club.api.ReservationCreateDto;
+import com.example.tennis_club.api.ReservationDetailedViewDto;
 import com.example.tennis_club.api.ReservationSimpleViewDto;
 import com.example.tennis_club.api.ReservationUpdateDto;
 import com.example.tennis_club.facade.ReservationFacade;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -122,5 +124,20 @@ public class ReservationRestController {
     @GetMapping("/court/{courtId}")
     public ResponseEntity<List<ReservationSimpleViewDto>> findByCourtId(@PathVariable("courtId") Long courtId) {
         return ResponseEntity.ok(reservationFacade.findByCourtId(courtId));
+    }
+
+    /**
+     * REST method returning reservations by phone number
+     */
+    @Operation(
+            summary = "Find reservations by phone number",
+            description = "Looks up a reservations by phone number.",
+            responses = {
+                    @ApiResponse(responseCode = "200"),
+            })
+    @GetMapping("/customer")
+    public ResponseEntity<List<ReservationDetailedViewDto>> findByCourtId(@RequestParam String phoneNumber,
+                                                                          @RequestParam(required = false, defaultValue = "false") boolean showFutureOnly) {
+        return ResponseEntity.ok(reservationFacade.findByPhoneNumber(phoneNumber, showFutureOnly));
     }
 }

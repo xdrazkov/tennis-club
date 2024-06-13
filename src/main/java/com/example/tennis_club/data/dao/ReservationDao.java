@@ -7,6 +7,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -51,6 +52,21 @@ public class ReservationDao implements GeneralDao<Reservation> {
     public List<Reservation> findByCourtId(Long courtId) {
         TypedQuery<Reservation> query = entityManager.createQuery("SELECT r FROM Reservation r WHERE r.court.id = :courtId", Reservation.class);
         query.setParameter("courtId", courtId);
+        return query.getResultList();
+    }
+
+    public List<Reservation> findByPhoneNumber(String phoneNumber, boolean showFutureOnly) {
+        StringBuilder queryString = new StringBuilder("SELECT r FROM Reservation r WHERE r.customer.phoneNumber = :phoneNumber");
+        if (showFutureOnly) {
+            queryString.append(" AND (r.dateFrom > :date)");
+        }
+
+        TypedQuery<Reservation> query = entityManager.createQuery(queryString.toString(), Reservation.class);
+        query.setParameter("phoneNumber", phoneNumber);
+        if (showFutureOnly) {
+            query.setParameter("date", LocalDateTime.now());
+        }
+
         return query.getResultList();
     }
 }

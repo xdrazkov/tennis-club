@@ -15,7 +15,7 @@ public class ReservationDetailedViewDto {
     private Long id;
 
     @Schema(description = "Court")
-    private Court court;
+    private CourtViewDto court;
 
     @Schema(description = "Date and time of start of reservation", example = "2021-12-01 12:00:00")
     private LocalDateTime dateFrom;

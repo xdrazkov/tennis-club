@@ -1,6 +1,7 @@
 package com.example.tennis_club.facade;
 
 import com.example.tennis_club.api.ReservationCreateDto;
+import com.example.tennis_club.api.ReservationDetailedViewDto;
 import com.example.tennis_club.api.ReservationSimpleViewDto;
 import com.example.tennis_club.api.ReservationUpdateDto;
 import com.example.tennis_club.data.model.Reservation;
@@ -42,5 +43,9 @@ public class ReservationFacade {
 
     public List<ReservationSimpleViewDto> findByCourtId(Long courtId) {
         return reservationMapper.mapToList(reservationService.findByCourtId(courtId));
+    }
+
+    public List<ReservationDetailedViewDto> findByPhoneNumber(String phoneNumber, boolean showFutureOnly) {
+        return reservationMapper.mapToDetailedViewList(reservationService.findByPhoneNumber(phoneNumber, showFutureOnly));
     }
 }
