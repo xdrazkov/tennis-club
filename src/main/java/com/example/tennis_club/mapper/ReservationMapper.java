@@ -17,7 +17,7 @@ public interface ReservationMapper {
     @Mapping(source="courtId", target="court")
     Reservation mapFromCreate(ReservationCreateDto reservation);
 
-    @Mapping(source="courtId", target="court")
+    @Mapping(source="courtId", target="court", defaultExpression = "java(null)")
     Reservation mapFromUpdate(ReservationUpdateDto reservation);
 
     ReservationSimpleViewDto mapToSimpleViewDto(Reservation reservation);

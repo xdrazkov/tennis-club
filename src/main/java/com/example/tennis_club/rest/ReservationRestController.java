@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -68,13 +69,29 @@ public class ReservationRestController {
     @Operation(
             summary = "Update reservation",
             description = """
-                    Updates a reservation based on the body sent in the request. 
+                    Updates a reservation based on the body sent in the request.
                     Returns the updated court as its response""",
             responses = {
                     @ApiResponse(responseCode = "200"),
             })
     @PutMapping("/{id}")
     public ResponseEntity<ReservationSimpleViewDto> update(@PathVariable("id") Long reservationId, @RequestBody ReservationUpdateDto reservation) {
+        return ResponseEntity.ok(reservationFacade.update(reservationId, reservation));
+    }
+
+    /**
+     * REST method updating a reservation
+     */
+    @Operation(
+            summary = "Update reservation",
+            description = """
+                    Updates a reservation based on the body sent in the request.
+                    Returns the updated court as its response""",
+            responses = {
+                    @ApiResponse(responseCode = "200"),
+            })
+    @PatchMapping("/{id}")
+    public ResponseEntity<ReservationSimpleViewDto> partialUpdate(@PathVariable("id") Long reservationId, @RequestBody ReservationUpdateDto reservation) {
         return ResponseEntity.ok(reservationFacade.update(reservationId, reservation));
     }
 
