@@ -51,7 +51,7 @@ public class CourtFacadeTest {
         List<Court> courtList = Lists.list(TestDataFactory.court);
         Mockito.when(courtService.findAll()).thenReturn(courtList);
 
-        List<CourtViewDto> courtViewDtoList = testEntityMapper.mapToList(courtList);
+        List<CourtViewDto> courtViewDtoList = testEntityMapper.mapToCourtList(courtList);
         Mockito.when(courtMapper.mapToList(courtList)).thenReturn(courtViewDtoList);
 
         // Act
@@ -64,7 +64,7 @@ public class CourtFacadeTest {
     @Test
     void createCourt_dbEmpty_returnsNewCourt() {
         // Arrange
-        Mockito.when(courtMapper.mapToCreate(TestDataFactory.courtViewDto)).thenReturn(TestDataFactory.court);
+        Mockito.when(courtMapper.mapFromCreate(TestDataFactory.courtCreateDto)).thenReturn(TestDataFactory.court);
         Mockito.when(courtService.create(TestDataFactory.court)).thenReturn(TestDataFactory.court);
         Mockito.when(courtMapper.mapToDto(TestDataFactory.court)).thenReturn(TestDataFactory.courtViewDto);
 
@@ -76,7 +76,7 @@ public class CourtFacadeTest {
     }
 
     @Test
-    void updateCourt_courtExists_returnsUpdatedCourt() {
+    void update_courtExists_returnsUpdatedCourt() {
         // Arrange
         Mockito.when(courtMapper.mapFromCreate(TestDataFactory.courtCreateDto)).thenReturn(TestDataFactory.court);
         Mockito.when(courtService.update(TestDataFactory.court)).thenReturn(TestDataFactory.court);
