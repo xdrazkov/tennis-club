@@ -13,7 +13,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {CourtService.class, SurfaceTypeDao.class})
 public interface CourtMapper {
 
-    @Mapping(source="surfaceTypeId", target="surfaceType")
+    @Mapping(source="surfaceTypeId", target="surfaceType", defaultExpression = "java(null)")
     Court mapFromCreate(CourtCreateDto court);
 
     @Mapping(source="surfaceType", target="surfaceType")

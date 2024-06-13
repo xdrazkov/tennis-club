@@ -58,7 +58,6 @@ public class ReservationService {
         // TODO handle boolean values
         newReservation.setDoubles(Objects.requireNonNullElse(newReservation.isDoubles(), existingReservation.isDoubles()));
 
-        System.out.println(newReservation.getDateFrom());
         reservationDao.save(newReservation);
         return findById(newReservation.getId());
     }
