@@ -24,6 +24,4 @@ public class ReservationSimpleViewDto {
 
     @Schema(description = "Is doubles game", example = "true")
     private boolean isDoubles;
-
-    // TODO customer field
 }

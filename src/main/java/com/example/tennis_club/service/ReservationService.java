@@ -61,4 +61,8 @@ public class ReservationService {
         reservationDao.save(newReservation);
         return findById(newReservation.getId());
     }
+
+    public List<Reservation> findByCourtId(Long courtId) {
+        return reservationDao.findByCourtId(courtId);
+    }
 }

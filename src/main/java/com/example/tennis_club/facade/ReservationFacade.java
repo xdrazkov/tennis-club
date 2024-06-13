@@ -39,4 +39,8 @@ public class ReservationFacade {
     public void deleteById(Long id) {
         reservationService.deleteById(id);
     }
+
+    public List<ReservationSimpleViewDto> findByCourtId(Long courtId) {
+        return reservationMapper.mapToList(reservationService.findByCourtId(courtId));
+    }
 }

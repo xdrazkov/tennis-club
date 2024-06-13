@@ -1,5 +1,6 @@
 package com.example.tennis_club.rest;
 
+import com.example.tennis_club.api.CourtViewDto;
 import com.example.tennis_club.api.ReservationCreateDto;
 import com.example.tennis_club.api.ReservationSimpleViewDto;
 import com.example.tennis_club.api.ReservationUpdateDto;
@@ -108,5 +109,19 @@ public class ReservationRestController {
     public ResponseEntity<Void> delete(@PathVariable("id") Long reservationId) {
         reservationFacade.deleteById(reservationId);
         return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * REST method returning reservations by court id
+     */
+    @Operation(
+            summary = "Find reservations by court id",
+            description = "Looks up a reservations by court id.",
+            responses = {
+                    @ApiResponse(responseCode = "200"),
+            })
+    @GetMapping("/court/{courtId}")
+    public ResponseEntity<List<ReservationSimpleViewDto>> findByCourtId(@PathVariable("courtId") Long courtId) {
+        return ResponseEntity.ok(reservationFacade.findByCourtId(courtId));
     }
 }

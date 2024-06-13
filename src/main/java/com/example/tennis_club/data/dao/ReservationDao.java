@@ -47,4 +47,10 @@ public class ReservationDao implements GeneralDao<Reservation> {
             entityManager.remove(reservation);
         }
     }
+
+    public List<Reservation> findByCourtId(Long courtId) {
+        TypedQuery<Reservation> query = entityManager.createQuery("SELECT r FROM Reservation r WHERE r.court.id = :courtId", Reservation.class);
+        query.setParameter("courtId", courtId);
+        return query.getResultList();
+    }
 }
