@@ -1,6 +1,7 @@
 package com.example.tennis_club.mapper;
 
 import com.example.tennis_club.api.ReservationCreateDto;
+import com.example.tennis_club.api.ReservationDetailedViewDto;
 import com.example.tennis_club.api.ReservationSimpleViewDto;
 import com.example.tennis_club.api.ReservationUpdateDto;
 import com.example.tennis_club.data.model.Reservation;
@@ -22,6 +23,9 @@ public interface ReservationMapper {
 
     @Mapping(target="courtId", expression = "java(reservation.getCourt().getId())")
     ReservationSimpleViewDto mapToSimpleViewDto(Reservation reservation);
+
+    @Mapping(target="cost", expression = "java(reservation.getCost() / 100)")
+    ReservationDetailedViewDto mapToDetailedViewDto(Reservation reservation);
 
     List<ReservationSimpleViewDto> mapToList(List<Reservation> courts);
 }
