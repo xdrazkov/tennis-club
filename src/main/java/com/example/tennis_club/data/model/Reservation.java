@@ -8,14 +8,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PreUpdate;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table(name = "reservation")
@@ -43,16 +45,24 @@ public class Reservation {
     @Column
     private boolean isDoubles;
 
-    @Column
-    private int cost = 0;
+    @Column(nullable = false, updatable = false)
+    private long cost = 0;
 
-    @Column
+    @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime created;
 
-    @PreUpdate
-    public void onPreUpdate() {
-        this.created = LocalDateTime.now();
+    @PrePersist
+    public void onPrePersist() {
+        this.cost = calculateCost();
+    }
+
+    private int calculateCost() {
+        long minutes = dateFrom.until(dateTo, ChronoUnit.MINUTES);
+        long cost = minutes * getCourt().getSurfaceType().getPricePerMinute();
+        if (isDoubles) {
+            cost = (long) (1.5 * cost);
+        }
+        return (int) cost;
     }
 }
-
-
