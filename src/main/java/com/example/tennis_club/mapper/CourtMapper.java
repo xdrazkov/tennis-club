@@ -20,4 +20,6 @@ public interface CourtMapper {
     CourtViewDto mapToDto(Court court);
 
     List<CourtViewDto> mapToList(List<Court> courts);
+
+    Object mapToCreate(CourtViewDto courtViewDto);
 }

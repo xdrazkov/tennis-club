@@ -36,4 +36,8 @@ public class Court {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "court", cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     private List<Reservation> reservations;
+
+    public String toString() {
+        return "Court(id=" + this.getId() + ", name=" + this.getName() + ", surfaceType=" + this.getSurfaceType() + ", reservations=" + this.getReservations() + ")";
+    }
 }

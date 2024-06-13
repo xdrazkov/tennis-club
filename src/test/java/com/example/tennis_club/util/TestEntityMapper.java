@@ -6,9 +6,9 @@ import com.example.tennis_club.api.ReservationCreateDto;
 import com.example.tennis_club.api.ReservationDetailedViewDto;
 import com.example.tennis_club.api.ReservationSimpleViewDto;
 import com.example.tennis_club.api.ReservationUpdateDto;
+import com.example.tennis_club.data.dao.SurfaceTypeDao;
 import com.example.tennis_club.data.model.Court;
 import com.example.tennis_club.data.model.Reservation;
-import com.example.tennis_club.mapper.ReservationMapper;
 import com.example.tennis_club.service.CourtService;
 import com.example.tennis_club.service.ReservationService;
 import org.mapstruct.Mapper;
@@ -16,7 +16,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {CourtService.class, ReservationService.class})
+@Mapper(componentModel = "spring", uses = {CourtService.class, ReservationService.class, SurfaceTypeDao.class})
 public interface TestEntityMapper {
     @Mapping(source="surfaceTypeId", target="surfaceType", defaultExpression = "java(null)")
     Court mapFromCreate(CourtCreateDto court);
@@ -43,5 +43,8 @@ public interface TestEntityMapper {
     List<ReservationDetailedViewDto> mapToDetailedViewList(List<Reservation> byPhoneNumber);
 
     CourtCreateDto mapToCreateCourt(Court court);
+
     ReservationCreateDto mapToCreateReservation(Reservation reservation);
+
+    List<CourtViewDto> mapToList(List<Court> courtList);
 }

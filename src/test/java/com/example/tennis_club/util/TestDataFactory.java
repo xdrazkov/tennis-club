@@ -24,14 +24,14 @@ public class TestDataFactory {
 
     public static Court court = createCourt();
     public static CourtViewDto courtViewDto = testEntityMapper.mapToDto(court);
-    private static CourtCreateDto courtCreateDto = testEntityMapper.mapToCreateCourt(court);
+    public static CourtCreateDto courtCreateDto = testEntityMapper.mapToCreateCourt(court);
 
     public static Customer customer = createCustomer();
 
     public static Reservation reservation = createReservation();
-    private static ReservationSimpleViewDto reservationSimpleViewDto = testEntityMapper.mapToSimpleViewDto(reservation);
-    private static ReservationDetailedViewDto reservationDetailedViewDto = testEntityMapper.mapToDetailedViewDto(reservation);
-    private static ReservationCreateDto reservationCreateDto = testEntityMapper.mapToCreateReservation(reservation);
+    public static ReservationSimpleViewDto reservationSimpleViewDto = testEntityMapper.mapToSimpleViewDto(reservation);
+    public static ReservationDetailedViewDto reservationDetailedViewDto = testEntityMapper.mapToDetailedViewDto(reservation);
+    public static ReservationCreateDto reservationCreateDto = testEntityMapper.mapToCreateReservation(reservation);
 
     private static SurfaceType createSurfaceType() {
         return new SurfaceType(
