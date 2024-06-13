@@ -2,6 +2,8 @@ package com.example.tennis_club.facade;
 
 import com.example.tennis_club.api.ReservationCreateDto;
 import com.example.tennis_club.api.ReservationSimpleViewDto;
+import com.example.tennis_club.api.ReservationUpdateDto;
+import com.example.tennis_club.data.model.Reservation;
 import com.example.tennis_club.mapper.ReservationMapper;
 import com.example.tennis_club.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,12 @@ public class ReservationFacade {
         return reservationMapper.mapToList(reservationService.findAll());
     }
 
+    public ReservationSimpleViewDto update(Long courtId, ReservationUpdateDto newReservation) {
+        Reservation newReservationEntity = reservationMapper.mapFromUpdate(newReservation);
+        newReservationEntity.setId(courtId);
+        return reservationMapper.mapToSimpleViewDto(reservationService.update(newReservationEntity));
+    }
+    
     public void deleteById(Long id) {
         reservationService.deleteById(id);
     }
