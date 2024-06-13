@@ -1,6 +1,5 @@
 package com.example.tennis_club.rest;
 
-import com.example.tennis_club.api.CourtViewDto;
 import com.example.tennis_club.api.ReservationCreateDto;
 import com.example.tennis_club.api.ReservationSimpleViewDto;
 import com.example.tennis_club.api.ReservationUpdateDto;

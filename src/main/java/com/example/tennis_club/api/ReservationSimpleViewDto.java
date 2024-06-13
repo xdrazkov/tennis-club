@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Schema(name = "ReservationCreateDTO", description = "Represents a reservation")
+@Schema(name = "ReservationSimpleViewDTO", description = "Represents a reservation")
 public class ReservationSimpleViewDto {
     @Schema(description = "Reservation ID", example = "1")
     private Long id;

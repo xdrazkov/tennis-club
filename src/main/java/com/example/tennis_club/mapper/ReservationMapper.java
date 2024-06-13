@@ -20,6 +20,7 @@ public interface ReservationMapper {
     @Mapping(source="courtId", target="court", defaultExpression = "java(null)")
     Reservation mapFromUpdate(ReservationUpdateDto reservation);
 
+    @Mapping(target="courtId", expression = "java(reservation.getCourt().getId())")
     ReservationSimpleViewDto mapToSimpleViewDto(Reservation reservation);
 
     List<ReservationSimpleViewDto> mapToList(List<Reservation> courts);
