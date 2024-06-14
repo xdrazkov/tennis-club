@@ -85,4 +85,36 @@ public class ReservationFacadeTest {
         // Verify
         Mockito.verify(reservationService).deleteById(1L);
     }
+
+    @Test
+    void findByCourtId_reservationExists_returnListWithReservation() {
+        // Arrange
+        List<Reservation> reservationList = Lists.list(TestDataFactory.reservation);
+        Mockito.when(reservationService.findByCourtId(1L)).thenReturn(reservationList);
+
+        List<ReservationSimpleViewDto> reservationSimpleViewDtoList = testEntityMapper.mapToListReservations(reservationList);
+        Mockito.when(reservationMapper.mapToList(reservationList)).thenReturn(reservationSimpleViewDtoList);
+
+        // Act
+        List<ReservationSimpleViewDto> resultReservationList = reservationFacade.findByCourtId(1L);
+
+        // Assert
+        assertThat(resultReservationList).isEqualTo(reservationSimpleViewDtoList);
+    }
+
+    @Test
+    void findByPhoneNumber_reservationExists_returnListWithReservation() {
+        // Arrange
+        List<Reservation> reservationList = Lists.list(TestDataFactory.reservation);
+        Mockito.when(reservationService.findByPhoneNumber("123456789", true)).thenReturn(reservationList);
+
+        List<ReservationDetailedViewDto> reservationDetailedViewDtoList = testEntityMapper.mapToDetailedViewList(reservationList);
+        Mockito.when(reservationMapper.mapToDetailedViewList(reservationList)).thenReturn(reservationDetailedViewDtoList);
+
+        // Act
+        List<ReservationDetailedViewDto> resultReservationList = reservationFacade.findByPhoneNumber("123456789", true);
+
+        // Assert
+        assertThat(resultReservationList).isEqualTo(reservationDetailedViewDtoList);
+    }
 }
