@@ -31,6 +31,12 @@ public class TestDataFactory {
     public static CourtCreateDto courtCreateDto = testEntityMapper.mapToCreateCourt(court);
 
     public static Customer customer = createCustomer();
+    public static Customer customer2 = createCustomer();
+
+    public static LocalDateTime dateFrom = LocalDateTime.parse("2021-12-12T12:00");
+    public static LocalDateTime dateTo = LocalDateTime.parse("2021-12-12T13:00");
+    public static LocalDateTime dateFrom2 = LocalDateTime.parse("2021-12-12T14:00");
+    public static LocalDateTime dateTo2 = LocalDateTime.parse("2021-12-12T15:00");
 
     public static Reservation reservation = createReservation();
     public static ReservationSimpleViewDto reservationSimpleViewDto = testEntityMapper.mapToSimpleViewDto(reservation);
@@ -72,11 +78,11 @@ public class TestDataFactory {
                 1L,
                 court,
                 customer,
-                LocalDateTime.parse("2021-12-12T12:00"),
-                LocalDateTime.parse("2021-12-12T13:00"),
+                dateFrom,
+                dateTo,
                 true,
                 100,
-                LocalDateTime.parse("2021-12-12T11:00")
+                dateFrom
         );
     }
 }
