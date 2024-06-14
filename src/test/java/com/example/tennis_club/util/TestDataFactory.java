@@ -33,7 +33,9 @@ public class TestDataFactory {
 
     public static Reservation reservation = createReservation();
     public static ReservationSimpleViewDto reservationSimpleViewDto = testEntityMapper.mapToSimpleViewDto(reservation);
+    public static List<ReservationSimpleViewDto> reservationSimpleViewDtoList = List.of(reservationSimpleViewDto);
     public static ReservationDetailedViewDto reservationDetailedViewDto = testEntityMapper.mapToDetailedViewDto(reservation);
+    public static List<ReservationDetailedViewDto> reservationDetailedViewDtoList = List.of(reservationDetailedViewDto);
     public static ReservationCreateDto reservationCreateDto = testEntityMapper.mapToCreateReservation(reservation);
     public static ReservationUpdateDto reservationUpdateDto = testEntityMapper.mapToUpdateReservation(reservation);
 

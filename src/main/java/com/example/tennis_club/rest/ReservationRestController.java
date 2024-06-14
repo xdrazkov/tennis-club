@@ -136,8 +136,8 @@ public class ReservationRestController {
                     @ApiResponse(responseCode = "200"),
             })
     @GetMapping("/customer")
-    public ResponseEntity<List<ReservationDetailedViewDto>> findByCourtId(@RequestParam String phoneNumber,
-                                                                          @RequestParam(required = false, defaultValue = "false") boolean showFutureOnly) {
+    public ResponseEntity<List<ReservationDetailedViewDto>> findByPhoneNumber(@RequestParam String phoneNumber,
+                                                                              @RequestParam(required = false, defaultValue = "false") boolean showFutureOnly) {
         return ResponseEntity.ok(reservationFacade.findByPhoneNumber(phoneNumber, showFutureOnly));
     }
 }
