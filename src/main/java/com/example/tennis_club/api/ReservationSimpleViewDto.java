@@ -6,8 +6,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Getter @Setter
 @Schema(name = "ReservationSimpleViewDTO", description = "Represents a reservation")
 public class ReservationSimpleViewDto {
     @Schema(description = "Reservation ID", example = "1")
@@ -24,4 +23,7 @@ public class ReservationSimpleViewDto {
 
     @Schema(description = "Is doubles game", example = "true")
     private boolean isDoubles;
+
+    @Schema(description = "Created date", example = "2021-04-01T12:00:00")
+    private LocalDateTime created;
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,7 +70,9 @@ public class ReservationService {
     }
 
     public List<Reservation> findByCourtId(Long courtId) {
-        return reservationDao.findByCourtId(courtId);
+        List<Reservation> reservations = reservationDao.findByCourtId(courtId);
+        reservations.sort(Comparator.comparing(Reservation::getDateFrom));
+        return reservations;
     }
 
     public List<Reservation> findByPhoneNumber(String phoneNumber, boolean showFutureOnly) {
