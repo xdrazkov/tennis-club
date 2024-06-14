@@ -22,7 +22,7 @@ public class ReservationCreateDto {
     @Schema(description = "Is doubles game", example = "true")
     private boolean isDoubles;
 
-    @Schema(description = "Phone number of the customer", example = "123456789")
+    @Schema(description = "Phone number of the customer", example = "2267709")
     private String customerPhone;
 
     @Schema(description = "Name of the customer", example = "Arthur Dent")

@@ -45,7 +45,7 @@ public class ReservationRestController {
                     @ApiResponse(responseCode = "201"),
             })
     @PostMapping("/")
-    public ResponseEntity<ReservationSimpleViewDto> create(@RequestBody ReservationCreateDto reservation) {
+    public ResponseEntity<ReservationDetailedViewDto> create(@RequestBody ReservationCreateDto reservation) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(reservationFacade.create(reservation));
@@ -77,7 +77,7 @@ public class ReservationRestController {
                     @ApiResponse(responseCode = "200"),
             })
     @PutMapping("/{id}")
-    public ResponseEntity<ReservationSimpleViewDto> update(@PathVariable("id") Long reservationId, @RequestBody ReservationUpdateDto reservation) {
+    public ResponseEntity<ReservationDetailedViewDto> update(@PathVariable("id") Long reservationId, @RequestBody ReservationUpdateDto reservation) {
         return ResponseEntity.ok(reservationFacade.update(reservationId, reservation));
     }
 
@@ -93,7 +93,7 @@ public class ReservationRestController {
                     @ApiResponse(responseCode = "200"),
             })
     @PatchMapping("/{id}")
-    public ResponseEntity<ReservationSimpleViewDto> partialUpdate(@PathVariable("id") Long reservationId, @RequestBody ReservationUpdateDto reservation) {
+    public ResponseEntity<ReservationDetailedViewDto> partialUpdate(@PathVariable("id") Long reservationId, @RequestBody ReservationUpdateDto reservation) {
         return ResponseEntity.ok(reservationFacade.update(reservationId, reservation));
     }
 

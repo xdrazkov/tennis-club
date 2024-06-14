@@ -23,18 +23,18 @@ public class ReservationFacade {
         this.reservationMapper = reservationMapper;
     }
 
-    public ReservationSimpleViewDto create(ReservationCreateDto reservation) {
-        return reservationMapper.mapToSimpleViewDto(reservationService.create(reservationMapper.mapFromCreate(reservation), reservation.getCustomerPhone(), reservation.getCustomerName()));
+    public ReservationDetailedViewDto create(ReservationCreateDto reservation) {
+        return reservationMapper.mapToDetailedViewDto(reservationService.create(reservationMapper.mapFromCreate(reservation), reservation.getCustomerPhone(), reservation.getCustomerName()));
     }
 
     public List<ReservationSimpleViewDto> findAll() {
         return reservationMapper.mapToList(reservationService.findAll());
     }
 
-    public ReservationSimpleViewDto update(Long courtId, ReservationUpdateDto newReservation) {
+    public ReservationDetailedViewDto update(Long reservationId, ReservationUpdateDto newReservation) {
         Reservation newReservationEntity = reservationMapper.mapFromUpdate(newReservation);
-        newReservationEntity.setId(courtId);
-        return reservationMapper.mapToSimpleViewDto(reservationService.update(newReservationEntity));
+        newReservationEntity.setId(reservationId);
+        return reservationMapper.mapToDetailedViewDto(reservationService.update(newReservationEntity));
     }
     
     public void deleteById(Long id) {

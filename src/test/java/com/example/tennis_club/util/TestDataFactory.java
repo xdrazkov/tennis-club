@@ -5,6 +5,7 @@ import com.example.tennis_club.api.CourtViewDto;
 import com.example.tennis_club.api.ReservationCreateDto;
 import com.example.tennis_club.api.ReservationDetailedViewDto;
 import com.example.tennis_club.api.ReservationSimpleViewDto;
+import com.example.tennis_club.api.ReservationUpdateDto;
 import com.example.tennis_club.data.model.Court;
 import com.example.tennis_club.data.model.Customer;
 import com.example.tennis_club.data.model.Reservation;
@@ -32,6 +33,7 @@ public class TestDataFactory {
     public static ReservationSimpleViewDto reservationSimpleViewDto = testEntityMapper.mapToSimpleViewDto(reservation);
     public static ReservationDetailedViewDto reservationDetailedViewDto = testEntityMapper.mapToDetailedViewDto(reservation);
     public static ReservationCreateDto reservationCreateDto = testEntityMapper.mapToCreateReservation(reservation);
+    public static ReservationUpdateDto reservationUpdateDto = testEntityMapper.mapToUpdateReservation(reservation);
 
     private static SurfaceType createSurfaceType() {
         return new SurfaceType(
@@ -54,8 +56,8 @@ public class TestDataFactory {
     private static Customer createCustomer() {
         return new Customer(
                 1L,
-                "John",
-                "Doe",
+                "Arthur Dent",
+                "123456789",
                 new ArrayList<>()
         );
     }

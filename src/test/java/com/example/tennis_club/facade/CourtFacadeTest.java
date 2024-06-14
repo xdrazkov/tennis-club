@@ -83,10 +83,10 @@ public class CourtFacadeTest {
         Mockito.when(courtMapper.mapToDto(TestDataFactory.court)).thenReturn(TestDataFactory.courtViewDto);
 
         // Act
-        CourtViewDto medicalRecordBasicViewDto = courtFacade.update(1L, TestDataFactory.courtCreateDto);
+        CourtViewDto courtViewDto = courtFacade.update(1L, TestDataFactory.courtCreateDto);
 
         // Assert
-        assertThat(medicalRecordBasicViewDto).isEqualTo(TestDataFactory.courtViewDto);
+        assertThat(courtViewDto).isEqualTo(TestDataFactory.courtViewDto);
     }
 
     @Test

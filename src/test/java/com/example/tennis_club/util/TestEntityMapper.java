@@ -44,7 +44,12 @@ public interface TestEntityMapper {
 
     CourtCreateDto mapToCreateCourt(Court court);
 
+    @Mapping(target="customerPhone", expression = "java(reservation.getCustomer().getPhoneNumber())")
+    @Mapping(target="customerName", expression = "java(reservation.getCustomer().getName())")
     ReservationCreateDto mapToCreateReservation(Reservation reservation);
 
-    List<CourtViewDto> mapToList(List<Court> courtList);
+    List<CourtViewDto> mapToCourtList(List<Court> courtList);
+
+    @Mapping(target="courtId", expression = "java(reservation.getCourt().getId())")
+    ReservationUpdateDto mapToUpdateReservation(Reservation reservation);
 }
