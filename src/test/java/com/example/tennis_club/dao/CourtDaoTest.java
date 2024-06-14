@@ -5,15 +5,12 @@ import com.example.tennis_club.data.model.Court;
 import com.example.tennis_club.util.TestDataFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +31,7 @@ public class CourtDaoTest {
     void findAll_returnsAllCourts() {
         // Arrange
         TypedQuery<Court> query = Mockito.mock(TypedQuery.class);
-        List<Court> expectedCourts = Arrays.asList(new Court(), new Court());
+        List<Court> expectedCourts = Arrays.asList(TestDataFactory.court, TestDataFactory.court2);
 
         when(entityManager.createQuery("SELECT r FROM Court r", Court.class)).thenReturn(query);
         when(query.getResultList()).thenReturn(expectedCourts);
@@ -52,7 +49,7 @@ public class CourtDaoTest {
     void findById_returnsCourt() {
         // Arrange
         Long id = 1L;
-        Court expectedCourt = new Court();
+        Court expectedCourt = TestDataFactory.court;
         when(entityManager.find(Court.class, id)).thenReturn(expectedCourt);
 
         // Act
@@ -66,7 +63,7 @@ public class CourtDaoTest {
     @Test
     void save_persistsNewCourt() {
         // Arrange
-        Court court = new Court();
+        Court court = TestDataFactory.court;
         court.setId(null);
 
         // Act
@@ -97,7 +94,7 @@ public class CourtDaoTest {
     void deleteById_removesCourt() {
         // Arrange
         Long id = 1L;
-        Court court = new Court();
+        Court court = TestDataFactory.court;
         when(entityManager.find(Court.class, id)).thenReturn(court);
 
         // Act

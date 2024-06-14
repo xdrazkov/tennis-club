@@ -38,8 +38,11 @@ public class TestDataFactory {
     public static LocalDateTime dateTo = LocalDateTime.parse("2021-12-12T13:00");
     public static LocalDateTime dateFrom2 = LocalDateTime.parse("2021-12-12T14:00");
     public static LocalDateTime dateTo2 = LocalDateTime.parse("2021-12-12T15:00");
+    public static LocalDateTime futureDateFrom = LocalDateTime.parse("2030-12-12T12:00");
+    public static LocalDateTime futureDateTo = LocalDateTime.parse("2030-12-12T13:00");
 
     public static Reservation reservation = createReservation();
+    public static Reservation futureReservation = createFutureReservation();
     public static ReservationSimpleViewDto reservationSimpleViewDto = testEntityMapper.mapToSimpleViewDto(reservation);
     public static List<ReservationSimpleViewDto> reservationSimpleViewDtoList = List.of(reservationSimpleViewDto);
     public static ReservationDetailedViewDto reservationDetailedViewDto = testEntityMapper.mapToDetailedViewDto(reservation);
@@ -81,6 +84,19 @@ public class TestDataFactory {
                 customer,
                 dateFrom,
                 dateTo,
+                true,
+                100,
+                dateFrom
+        );
+    }
+
+    private static Reservation createFutureReservation() {
+        return new Reservation(
+                1L,
+                court,
+                customer,
+                futureDateFrom,
+                futureDateTo,
                 true,
                 100,
                 dateFrom
