@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class TestDataFactory {
@@ -25,6 +26,7 @@ public class TestDataFactory {
 
     public static Court court = createCourt();
     public static CourtViewDto courtViewDto = testEntityMapper.mapToDto(court);
+    public static List<CourtViewDto> courtViewDtoList = List.of(courtViewDto);
     public static CourtCreateDto courtCreateDto = testEntityMapper.mapToCreateCourt(court);
 
     public static Customer customer = createCustomer();
