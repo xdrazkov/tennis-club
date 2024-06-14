@@ -49,7 +49,7 @@ public class ReservationRestControllerTest {
     }
 
     @Test
-    void update_reservationExists_returnsUpdatedMedicalRecord() {
+    void update_reservationExists_returnsUpdatedReservation() {
         // Arrange
         Mockito.when(reservationFacade.update(1L, TestDataFactory.reservationUpdateDto)).thenReturn(TestDataFactory.reservationDetailedViewDto);
 

@@ -60,7 +60,7 @@ public class CourtRestControllerTest {
     }
 
     @Test
-    void update_courtExists_returnsUpdatedMedicalRecord() {
+    void update_courtExists_returnsUpdatedCourt() {
         // Arrange
         Mockito.when(courtFacade.update(1L, TestDataFactory.courtCreateDto)).thenReturn(TestDataFactory.courtViewDto);
 
