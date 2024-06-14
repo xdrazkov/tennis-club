@@ -33,6 +33,8 @@ public class ReservationService {
     public Reservation create(Reservation reservation, String customerPhone, String customerName) {
         if (reservation.getCourt() == null || customerPhone == null || customerName == null) {
             throw new IllegalArgumentException("Valid court is required");
+        } else if (!reservation.getDateTo().isAfter(reservation.getDateFrom())) {
+            throw new IllegalArgumentException("End date must be after start date");
         }
         Customer customer = customerDao.getByPhoneNumber(customerPhone, customerName);
         reservation.setCustomer(customer);
