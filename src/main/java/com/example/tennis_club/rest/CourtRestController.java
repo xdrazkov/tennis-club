@@ -70,9 +70,13 @@ public class CourtRestController {
             })
     @PostMapping("/")
     public ResponseEntity<CourtViewDto> create(@RequestBody CourtCreateDto court) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(courtFacade.create(court));
+        try {
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(courtFacade.create(court));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     /**

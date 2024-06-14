@@ -31,6 +31,9 @@ public class ReservationService {
 
     @Transactional
     public Reservation create(Reservation reservation, String customerPhone, String customerName) {
+        if (reservation.getCourt() == null) {
+            throw new IllegalArgumentException("Valid court is required");
+        }
         Customer customer = customerDao.getByPhoneNumber(customerPhone, customerName);
         reservation.setCustomer(customer);
         List<Reservation> courtReservations = reservationDao.findByCourtId(reservation.getCourt().getId());

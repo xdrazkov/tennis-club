@@ -31,6 +31,9 @@ public class CourtService {
 
     @Transactional
     public Court create(Court court) {
+        if (court.getName() == null || court.getSurfaceType() == null) {
+            throw new IllegalArgumentException("Name and surface type are required");
+        }
         return courtDao.save(court);
     }
 

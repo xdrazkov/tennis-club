@@ -22,7 +22,7 @@ import java.util.List;
 public class SurfaceType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "surface_type_id")
+    @Column(name = "surface_type_id", nullable = false)
     private Long id;
 
     @Column
