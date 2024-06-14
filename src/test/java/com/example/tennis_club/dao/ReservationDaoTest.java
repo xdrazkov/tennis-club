@@ -126,7 +126,7 @@ public class ReservationDaoTest {
     @Test
     void findByPhoneNumber_returnsReservationsForPhoneNumber() {
         // Arrange
-        String phoneNumber = "123-456-7890";
+        String phoneNumber = "1234567890";
         boolean showFutureOnly = false;
         TypedQuery<Reservation> query = mock(TypedQuery.class);
         List<Reservation> expectedReservations = Arrays.asList(TestDataFactory.reservation,TestDataFactory.futureReservation);
