@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/courts/")
 @OpenAPIDefinition(
@@ -31,20 +32,14 @@ import java.util.List;
                 version = "1.0",
                 description = """
                         Simple service for managing courts and reservations. The API has operations to:
-                          - Update reservation
-                          - Delete reservation
-                          - Partial update reservation
+                          - Create, Update, Delete reservations
                           - Get all reservations
-                          - Create reservation
                           - Find reservations by phone number
-                          - Find reservations by court id 
+                          - Find reservations by court id
                         
-                          - Find court by id
-                          - Update court
-                          - Delete court
-                          - Partial update court
+                          - Create, Update, Delete courts
                           - Get all courts
-                          - Create court
+                          - Find court by id
 
                         """
         )
@@ -154,4 +149,3 @@ public class CourtRestController {
         return ResponseEntity.noContent().build();
     }
 }
-
