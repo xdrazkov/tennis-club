@@ -21,13 +21,15 @@ public class CourtDao implements GeneralDao<Court> {
 
     @Override
     public List<Court> findAll() {
-        TypedQuery<Court> query = entityManager.createQuery("SELECT r FROM Court r", Court.class);
+        TypedQuery<Court> query = entityManager.createQuery("SELECT r FROM Court r WHERE r.deleted = false", Court.class);
         return query.getResultList();
     }
 
     @Override
     public Court findById(Long id) {
-        return entityManager.find(Court.class, id);
+        TypedQuery<Court> query = entityManager.createQuery("SELECT r FROM Court r WHERE r.id = :id AND r.deleted = false", Court.class);
+        query.setParameter("id", id);
+        return query.getResultStream().findFirst().orElse(null);
     }
 
     @Override
@@ -44,7 +46,8 @@ public class CourtDao implements GeneralDao<Court> {
     public void deleteById(Long id) {
         Court court = findById(id);
         if (court != null) {
-            entityManager.remove(court);
+            court.setDeleted(true);
+            entityManager.merge(court);
         }
     }
 }
