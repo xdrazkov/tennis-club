@@ -23,6 +23,7 @@ public class TestDataFactory {
     private static final TestEntityMapper testEntityMapper = Mappers.getMapper(TestEntityMapper.class);
 
     public static SurfaceType surfaceType = createSurfaceType();
+    public static SurfaceType surfaceType2 = createSurfaceType();
 
     public static Court court = createCourt();
     public static CourtViewDto courtViewDto = testEntityMapper.mapToDto(court);
