@@ -32,8 +32,9 @@ public class CourtDaoTest {
         // Arrange
         TypedQuery<Court> query = Mockito.mock(TypedQuery.class);
         List<Court> expectedCourts = Arrays.asList(TestDataFactory.court, TestDataFactory.court2);
+        String expectedQuery = "SELECT r FROM Court r WHERE r.deleted = false";
 
-        when(entityManager.createQuery("SELECT r FROM Court r", Court.class)).thenReturn(query);
+        when(entityManager.createQuery(expectedQuery, Court.class)).thenReturn(query);
         when(query.getResultList()).thenReturn(expectedCourts);
 
         // Act
@@ -41,7 +42,7 @@ public class CourtDaoTest {
 
         // Assert
         assertThat(result).isEqualTo(expectedCourts);
-        verify(entityManager).createQuery("SELECT r FROM Court r", Court.class);
+        verify(entityManager).createQuery(expectedQuery, Court.class);
         verify(query).getResultList();
     }
 
@@ -49,15 +50,22 @@ public class CourtDaoTest {
     void findById_returnsCourt() {
         // Arrange
         Long id = 1L;
+        TypedQuery<Court> query = Mockito.mock(TypedQuery.class);
         Court expectedCourt = TestDataFactory.court;
-        when(entityManager.find(Court.class, id)).thenReturn(expectedCourt);
+        String expectedQuery = "SELECT r FROM Court r WHERE r.id = :id AND r.deleted = false";
+
+        when(entityManager.createQuery(expectedQuery, Court.class)).thenReturn(query);
+        when(query.setParameter("id", id)).thenReturn(query);
+        when(query.getResultStream()).thenReturn(Arrays.stream(new Court[]{expectedCourt}));
 
         // Act
         Court result = courtDao.findById(id);
 
         // Assert
         assertThat(result).isEqualTo(expectedCourt);
-        verify(entityManager).find(Court.class, id);
+        verify(entityManager).createQuery(expectedQuery, Court.class);
+        verify(query).setParameter("id", id);
+        verify(query).getResultStream();
     }
 
     @Test
@@ -95,20 +103,31 @@ public class CourtDaoTest {
         // Arrange
         Long id = 1L;
         Court court = TestDataFactory.court;
-        when(entityManager.find(Court.class, id)).thenReturn(court);
+
+        TypedQuery<Court> query = Mockito.mock(TypedQuery.class);
+        String expectedQuery = "SELECT r FROM Court r WHERE r.id = :id AND r.deleted = false";
+        when(entityManager.createQuery(expectedQuery, Court.class)).thenReturn(query);
+        when(query.setParameter("id", id)).thenReturn(query);
+        when(query.getResultStream()).thenReturn(Arrays.stream(new Court[]{court}));
 
         // Act
         courtDao.deleteById(id);
 
         // Assert
-        verify(entityManager).remove(court);
+        verify(entityManager).merge(court);
+        assertThat(court.isDeleted()).isTrue();
     }
 
     @Test
     void deleteById_doesNothingWhenCourtNotFound() {
         // Arrange
         Long id = 1L;
-        when(entityManager.find(Court.class, id)).thenReturn(null);
+
+        TypedQuery<Court> query = Mockito.mock(TypedQuery.class);
+        String expectedQuery = "SELECT r FROM Court r WHERE r.id = :id AND r.deleted = false";
+        when(entityManager.createQuery(expectedQuery, Court.class)).thenReturn(query);
+        when(query.setParameter("id", id)).thenReturn(query);
+        when(query.getResultStream()).thenReturn(Arrays.stream(new Court[]{}));
 
         // Act
         courtDao.deleteById(id);

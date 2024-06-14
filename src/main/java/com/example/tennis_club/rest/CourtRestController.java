@@ -31,11 +31,21 @@ import java.util.List;
                 version = "1.0",
                 description = """
                         Simple service for managing courts and reservations. The API has operations to:
-                          - Create court
-                          - Get all courts
+                          - Update reservation
+                          - Delete reservation
+                          - Partial update reservation
+                          - Get all reservations
+                          - Create reservation
+                          - Find reservations by phone number
+                          - Find reservations by court id 
+                        
                           - Find court by id
                           - Update court
                           - Delete court
+                          - Partial update court
+                          - Get all courts
+                          - Create court
+
                         """
         )
 )
@@ -140,3 +150,4 @@ public class CourtRestController {
         return ResponseEntity.noContent().build();
     }
 }
+

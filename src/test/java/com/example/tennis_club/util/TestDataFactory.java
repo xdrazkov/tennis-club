@@ -64,7 +64,8 @@ public class TestDataFactory {
                 1L,
                 "Court 1",
                 surfaceType,
-                new ArrayList<>()
+                new ArrayList<>(),
+                false
         );
     }
 
@@ -86,7 +87,8 @@ public class TestDataFactory {
                 dateTo,
                 true,
                 100,
-                dateFrom
+                dateFrom,
+                false
         );
     }
 
@@ -99,7 +101,8 @@ public class TestDataFactory {
                 futureDateTo,
                 true,
                 100,
-                dateFrom
+                dateFrom,
+                false
         );
     }
 }
