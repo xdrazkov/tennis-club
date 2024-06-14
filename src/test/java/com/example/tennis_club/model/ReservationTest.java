@@ -30,7 +30,7 @@ public class ReservationTest {
         LocalDateTime dateTo = LocalDateTime.of(2024, 6, 14, 12, 0);
         testReservation.setDateFrom(dateFrom);
         testReservation.setDateTo(dateTo);
-        testReservation.setDoubles(false);
+        testReservation.setIsDoubles(false);
         testReservation.getCourt().getSurfaceType().setPricePerMinute(12);
 
         // Act
@@ -48,7 +48,7 @@ public class ReservationTest {
         LocalDateTime dateTo = LocalDateTime.of(2024, 6, 14, 12, 0);
         testReservation.setDateFrom(dateFrom);
         testReservation.setDateTo(dateTo);
-        testReservation.setDoubles(true);
+        testReservation.setIsDoubles(true);
         testReservation.getCourt().getSurfaceType().setPricePerMinute(12);
 
         // Act
