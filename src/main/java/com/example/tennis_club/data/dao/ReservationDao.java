@@ -22,13 +22,15 @@ public class ReservationDao implements GeneralDao<Reservation> {
 
     @Override
     public List<Reservation> findAll() {
-        TypedQuery<Reservation> query = entityManager.createQuery("SELECT r FROM Reservation r", Reservation.class);
+        TypedQuery<Reservation> query = entityManager.createQuery("SELECT r FROM Reservation r WHERE r.deleted = false", Reservation.class);
         return query.getResultList();
     }
 
     @Override
     public Reservation findById(Long id) {
-        return entityManager.find(Reservation.class, id);
+        TypedQuery<Reservation> query = entityManager.createQuery("SELECT r FROM Reservation r WHERE r.id = :id AND r.deleted = false", Reservation.class);
+        query.setParameter("id", id);
+        return query.getResultStream().findFirst().orElse(null);
     }
 
     @Override
@@ -45,18 +47,19 @@ public class ReservationDao implements GeneralDao<Reservation> {
     public void deleteById(Long id) {
         Reservation reservation = findById(id);
         if (reservation != null) {
-            entityManager.remove(reservation);
+            reservation.setDeleted(true);
+            entityManager.merge(reservation);
         }
     }
 
     public List<Reservation> findByCourtId(Long courtId) {
-        TypedQuery<Reservation> query = entityManager.createQuery("SELECT r FROM Reservation r WHERE r.court.id = :courtId", Reservation.class);
+        TypedQuery<Reservation> query = entityManager.createQuery("SELECT r FROM Reservation r WHERE r.court.id = :courtId AND r.deleted = false", Reservation.class);
         query.setParameter("courtId", courtId);
         return query.getResultList();
     }
 
     public List<Reservation> findByPhoneNumber(String phoneNumber, boolean showFutureOnly) {
-        StringBuilder queryString = new StringBuilder("SELECT r FROM Reservation r WHERE r.customer.phoneNumber = :phoneNumber");
+        StringBuilder queryString = new StringBuilder("SELECT r FROM Reservation r WHERE r.customer.phoneNumber = :phoneNumber AND r.deleted = false");
         if (showFutureOnly) {
             queryString.append(" AND (r.dateFrom > :date)");
         }

@@ -52,6 +52,9 @@ public class Reservation {
     @Column(updatable = false)
     private LocalDateTime created;
 
+    @Column
+    private boolean deleted = false;
+
     @PrePersist
     public void onPrePersist() {
         this.cost = calculateCost();
