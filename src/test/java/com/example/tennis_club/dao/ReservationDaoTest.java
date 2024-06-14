@@ -1,6 +1,7 @@
 package com.example.tennis_club.dao;
 
 import com.example.tennis_club.data.dao.ReservationDao;
+import com.example.tennis_club.data.model.Court;
 import com.example.tennis_club.data.model.Reservation;
 import com.example.tennis_club.util.TestDataFactory;
 import jakarta.persistence.EntityManager;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
@@ -31,8 +33,9 @@ public class ReservationDaoTest {
         // Arrange
         TypedQuery<Reservation> query = mock(TypedQuery.class);
         List<Reservation> expectedReservations = Arrays.asList(TestDataFactory.reservation,TestDataFactory.futureReservation);
+        String expectedQuery = "SELECT r FROM Reservation r WHERE r.deleted = false";
 
-        when(entityManager.createQuery("SELECT r FROM Reservation r", Reservation.class)).thenReturn(query);
+        when(entityManager.createQuery(expectedQuery, Reservation.class)).thenReturn(query);
         when(query.getResultList()).thenReturn(expectedReservations);
 
         // Act
@@ -40,7 +43,7 @@ public class ReservationDaoTest {
 
         // Assert
         assertThat(result).isEqualTo(expectedReservations);
-        verify(entityManager).createQuery("SELECT r FROM Reservation r", Reservation.class);
+        verify(entityManager).createQuery(expectedQuery, Reservation.class);
         verify(query).getResultList();
     }
 
@@ -80,26 +83,38 @@ public class ReservationDaoTest {
         // Arrange
         Long id = 1L;
         Reservation reservation = TestDataFactory.reservation;
-        when(entityManager.find(Reservation.class, id)).thenReturn(reservation);
+
+        TypedQuery<Reservation> query = Mockito.mock(TypedQuery.class);
+        String expectedQuery = "SELECT r FROM Reservation r WHERE r.id = :id AND r.deleted = false";
+        when(entityManager.createQuery(expectedQuery, Reservation.class)).thenReturn(query);
+        when(query.setParameter("id", id)).thenReturn(query);
+        when(query.getResultStream()).thenReturn(Arrays.stream(new Reservation[]{reservation}));
 
         // Act
         reservationDao.deleteById(id);
 
         // Assert
-        verify(entityManager).remove(reservation);
+        verify(entityManager).merge(reservation);
+        assertThat(reservation.isDeleted()).isTrue();
     }
 
     @Test
     void deleteById_doesNothingWhenReservationNotFound() {
         // Arrange
         Long id = 1L;
-        when(entityManager.find(Reservation.class, id)).thenReturn(null);
+        Reservation reservation = TestDataFactory.reservation;
+
+        TypedQuery<Reservation> query = Mockito.mock(TypedQuery.class);
+        String expectedQuery = "SELECT r FROM Reservation r WHERE r.id = :id AND r.deleted = false";
+        when(entityManager.createQuery(expectedQuery, Reservation.class)).thenReturn(query);
+        when(query.setParameter("id", id)).thenReturn(query);
+        when(query.getResultStream()).thenReturn(Arrays.stream(new Reservation[]{}));
 
         // Act
         reservationDao.deleteById(id);
 
         // Assert
-        verify(entityManager, never()).remove(any(Reservation.class));
+        verify(entityManager, never()).remove(any(Court.class));
     }
 
     @Test
@@ -108,8 +123,9 @@ public class ReservationDaoTest {
         Long courtId = 1L;
         TypedQuery<Reservation> query = mock(TypedQuery.class);
         List<Reservation> expectedReservations = Arrays.asList(TestDataFactory.reservation,TestDataFactory.futureReservation);
+        String expectedQuery = "SELECT r FROM Reservation r WHERE r.court.id = :courtId AND r.deleted = false";
 
-        when(entityManager.createQuery("SELECT r FROM Reservation r WHERE r.court.id = :courtId", Reservation.class)).thenReturn(query);
+        when(entityManager.createQuery(expectedQuery, Reservation.class)).thenReturn(query);
         when(query.getResultList()).thenReturn(expectedReservations);
         when(query.setParameter("courtId", courtId)).thenReturn(query);
 
@@ -118,7 +134,7 @@ public class ReservationDaoTest {
 
         // Assert
         assertThat(result).isEqualTo(expectedReservations);
-        verify(entityManager).createQuery("SELECT r FROM Reservation r WHERE r.court.id = :courtId", Reservation.class);
+        verify(entityManager).createQuery(expectedQuery, Reservation.class);
         verify(query).setParameter("courtId", courtId);
         verify(query).getResultList();
     }
@@ -130,8 +146,9 @@ public class ReservationDaoTest {
         boolean showFutureOnly = false;
         TypedQuery<Reservation> query = mock(TypedQuery.class);
         List<Reservation> expectedReservations = Arrays.asList(TestDataFactory.reservation,TestDataFactory.futureReservation);
+        String expectedQuery = "SELECT r FROM Reservation r WHERE r.customer.phoneNumber = :phoneNumber AND r.deleted = false";
 
-        when(entityManager.createQuery("SELECT r FROM Reservation r WHERE r.customer.phoneNumber = :phoneNumber", Reservation.class)).thenReturn(query);
+        when(entityManager.createQuery(expectedQuery, Reservation.class)).thenReturn(query);
         when(query.getResultList()).thenReturn(expectedReservations);
         when(query.setParameter("phoneNumber", phoneNumber)).thenReturn(query);
 
@@ -140,7 +157,7 @@ public class ReservationDaoTest {
 
         // Assert
         assertThat(result).isEqualTo(expectedReservations);
-        verify(entityManager).createQuery("SELECT r FROM Reservation r WHERE r.customer.phoneNumber = :phoneNumber", Reservation.class);
+        verify(entityManager).createQuery(expectedQuery, Reservation.class);
         verify(query).setParameter("phoneNumber", phoneNumber);
         verify(query).getResultList();
     }
@@ -152,8 +169,9 @@ public class ReservationDaoTest {
         boolean showFutureOnly = true;
         TypedQuery<Reservation> query = mock(TypedQuery.class);
         List<Reservation> expectedReservations = Arrays.asList(TestDataFactory.futureReservation);
+        String expectedQuery = "SELECT r FROM Reservation r WHERE r.customer.phoneNumber = :phoneNumber AND r.deleted = false AND (r.dateFrom > :date)";
 
-        when(entityManager.createQuery("SELECT r FROM Reservation r WHERE r.customer.phoneNumber = :phoneNumber AND (r.dateFrom > :date)", Reservation.class)).thenReturn(query);
+        when(entityManager.createQuery(expectedQuery, Reservation.class)).thenReturn(query);
         when(query.getResultList()).thenReturn(expectedReservations);
         when(query.setParameter("phoneNumber", phoneNumber)).thenReturn(query);
 
@@ -162,7 +180,7 @@ public class ReservationDaoTest {
 
         // Assert
         assertThat(result).isEqualTo(expectedReservations);
-        verify(entityManager).createQuery("SELECT r FROM Reservation r WHERE r.customer.phoneNumber = :phoneNumber AND (r.dateFrom > :date)", Reservation.class);
+        verify(entityManager).createQuery(expectedQuery, Reservation.class);
         verify(query).setParameter("phoneNumber", phoneNumber);
         verify(query).getResultList();
     }
