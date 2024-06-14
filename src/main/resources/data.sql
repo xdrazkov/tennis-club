@@ -1,15 +1,11 @@
-INSERT INTO SURFACE_TYPE (surface_type_id, name, price_per_minute)
+INSERT INTO SURFACE_TYPE (name, price_per_minute)
 VALUES
-    (1, 'Clay', 12),
-    (2, 'Grass', 15),
-    (3, 'Hard', 10),
-    (4, 'Carpet', 8),
-    (5, 'Artificial Grass', 13);
+    ('Clay', 12),
+    ('Grass', 15);
 
-INSERT INTO COURT (court_id, name, surface_type_id)
+INSERT INTO COURT (name, surface_type_id, deleted)
 VALUES
-    (1, 'Court 1', 1),
-    (2, 'Court 2', 2),
-    (3, 'Court 3', 3),
-    (4, 'Court 4', 4),
-    (5, 'Court 5', 5);
+    ('Court 1', 1, false),
+    ('Court 2', 2, false),
+    ('Court 3', 1, false),
+    ('Court 4', 2, false);
