@@ -82,6 +82,26 @@ public class ReservationServiceTest {
     }
 
     @Test
+    void createReservation_collision_throwsIllegalArgumentException() {
+        // Arrange
+        Reservation reservation = TestDataFactory.reservation;
+        Reservation existingReservation = TestDataFactory.futureReservation;
+        reservation.setDateFrom(existingReservation.getDateTo().minusHours(1));
+        reservation.setDateTo(existingReservation.getDateTo().plusHours(1));
+        Mockito.when(customerDao.getByPhoneNumber(reservation.getCustomer().getPhoneNumber(), reservation.getCustomer().getName())).thenReturn(reservation.getCustomer());
+        Mockito.when(reservationDao.findByCourtId(reservation.getCourt().getId())).thenReturn(List.of(existingReservation));
+
+        // Act
+        IllegalArgumentException thrown = org.junit.jupiter.api.Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> reservationService.create(reservation, reservation.getCustomer().getPhoneNumber(), reservation.getCustomer().getName())
+        );
+
+        // Assert
+        assertThat(thrown.getMessage()).isNotEmpty();
+    }
+
+    @Test
     void deleteById_reservationExists_deletesReservation() {
         // Arrange
 

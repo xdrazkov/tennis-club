@@ -33,7 +33,8 @@ public class ReservationService {
     public Reservation create(Reservation reservation, String customerPhone, String customerName) {
         Customer customer = customerDao.getByPhoneNumber(customerPhone, customerName);
         reservation.setCustomer(customer);
-        findByCourtId(reservation.getCourt().getId()).forEach(existingReservation -> {
+        List<Reservation> courtReservations = reservationDao.findByCourtId(reservation.getCourt().getId());
+        courtReservations.forEach(existingReservation -> {
             if (reservation.getDateFrom().isBefore(existingReservation.getDateTo()) &&
                     reservation.getDateTo().isAfter(existingReservation.getDateFrom())) {
                 throw new IllegalArgumentException("Court is already reserved for this time");
