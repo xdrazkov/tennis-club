@@ -22,7 +22,7 @@ public class ReservationSimpleViewDto {
     private LocalDateTime dateTo;
 
     @Schema(description = "Is doubles game", example = "true")
-    private boolean isDoubles;
+    private Boolean isDoubles;
 
     @Schema(description = "Created date", example = "2021-04-01T12:00:00")
     private LocalDateTime created;

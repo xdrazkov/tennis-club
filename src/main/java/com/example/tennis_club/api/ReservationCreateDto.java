@@ -20,7 +20,7 @@ public class ReservationCreateDto {
     private LocalDateTime dateTo;
 
     @Schema(description = "Is doubles game", example = "true")
-    private boolean isDoubles;
+    private Boolean isDoubles;
 
     @Schema(description = "Phone number of the customer", example = "2267709")
     private String customerPhone;

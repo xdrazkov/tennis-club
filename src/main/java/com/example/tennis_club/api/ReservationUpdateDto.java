@@ -20,5 +20,5 @@ public class ReservationUpdateDto {
     private LocalDateTime dateTo;
 
     @Schema(description = "Is doubles game", example = "true")
-    private boolean isDoubles;
+    private Boolean isDoubles;
 }

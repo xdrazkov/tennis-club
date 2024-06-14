@@ -42,8 +42,8 @@ public class Reservation {
     @Column
     private LocalDateTime dateTo;
 
-    @Column
-    private boolean isDoubles;
+    @Column(nullable = false)
+    private Boolean isDoubles;
 
     @Column(nullable = false, updatable = false)
     private long cost = 0;

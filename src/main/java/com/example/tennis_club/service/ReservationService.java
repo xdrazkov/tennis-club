@@ -63,8 +63,7 @@ public class ReservationService {
         newReservation.setCustomer(Objects.requireNonNullElse(newReservation.getCustomer(), existingReservation.getCustomer()));
         newReservation.setDateFrom(Objects.requireNonNullElse(newReservation.getDateFrom(), existingReservation.getDateFrom()));
         newReservation.setDateTo(Objects.requireNonNullElse(newReservation.getDateTo(), existingReservation.getDateTo()));
-        // TODO handle boolean values
-        newReservation.setDoubles(Objects.requireNonNullElse(newReservation.isDoubles(), existingReservation.isDoubles()));
+        newReservation.setIsDoubles(Objects.requireNonNullElse(newReservation.getIsDoubles(), existingReservation.getIsDoubles()));
 
         reservationDao.save(newReservation);
         return findById(newReservation.getId());
