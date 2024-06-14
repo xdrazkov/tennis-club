@@ -46,9 +46,13 @@ public class ReservationRestController {
             })
     @PostMapping("/")
     public ResponseEntity<ReservationDetailedViewDto> create(@RequestBody ReservationCreateDto reservation) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(reservationFacade.create(reservation));
+        try {
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(reservationFacade.create(reservation));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     /**
