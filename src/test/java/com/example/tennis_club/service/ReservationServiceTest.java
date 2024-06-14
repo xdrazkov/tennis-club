@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -149,7 +150,8 @@ public class ReservationServiceTest {
     @Test
     void findByCourtId_reservationExists_returnsReservations() {
         // Arrange
-        List<Reservation> reservations = List.of(TestDataFactory.reservation);
+        ArrayList<Reservation> reservations = new ArrayList<>();
+        reservations.add(TestDataFactory.reservation);
         Mockito.when(reservationDao.findByCourtId(1L)).thenReturn(reservations);
 
         // Act
@@ -162,7 +164,7 @@ public class ReservationServiceTest {
     @Test
     void findByCourtId_noReservations_returnsEmptyList() {
         // Arrange
-        Mockito.when(reservationDao.findByCourtId(1L)).thenReturn(List.of());
+        Mockito.when(reservationDao.findByCourtId(1L)).thenReturn(new ArrayList<>());
 
         // Act
         List<Reservation> reservations = reservationService.findByCourtId(1L);
@@ -174,7 +176,7 @@ public class ReservationServiceTest {
     @Test
     void findByCourtId_courtDoesNotExist_returnsEmptyList() {
         // Arrange
-        Mockito.when(reservationDao.findByCourtId(1L)).thenReturn(List.of());
+        Mockito.when(reservationDao.findByCourtId(1L)).thenReturn(new ArrayList<>());
 
         // Act
         List<Reservation> reservations = reservationService.findByCourtId(1L);
