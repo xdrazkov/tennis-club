@@ -25,7 +25,7 @@ public interface ReservationMapper {
     @Mapping(target="created", source="created")
     ReservationSimpleViewDto mapToSimpleViewDto(Reservation reservation);
 
-    @Mapping(target="cost", expression = "java(reservation.getCost() / 100)")
+    @Mapping(target="cost", expression = "java(reservation.getCost() / 100.0)")
     ReservationDetailedViewDto mapToDetailedViewDto(Reservation reservation);
 
     List<ReservationSimpleViewDto> mapToList(List<Reservation> courts);

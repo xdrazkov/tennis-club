@@ -27,7 +27,7 @@ public class ReservationDetailedViewDto {
     private Boolean isDoubles;
 
     @Schema(description = "Cost of the reservation", example = "100.50")
-    private float cost;
+    private double cost;
 
     @Schema(description = "Date and time of creation", example = "2021-12-01 12:00:00")
     private LocalDateTime created;
