@@ -86,7 +86,7 @@ public class ReservationRestController {
     public ResponseEntity<?> update(@PathVariable("id") Long reservationId, @RequestBody ReservationUpdateDto reservation) {
         try {
             return ResponseEntity
-                    .status(HttpStatus.CREATED)
+                    .status(HttpStatus.OK)
                     .body(reservationFacade.update(reservationId, reservation));
         } catch (IllegalArgumentException e) {
             return ResponseEntity
@@ -110,7 +110,7 @@ public class ReservationRestController {
     public ResponseEntity<?> partialUpdate(@PathVariable("id") Long reservationId, @RequestBody ReservationUpdateDto reservation) {
         try {
             return ResponseEntity
-                    .status(HttpStatus.CREATED)
+                    .status(HttpStatus.OK)
                     .body(reservationFacade.update(reservationId, reservation));
         } catch (IllegalArgumentException e) {
             return ResponseEntity

@@ -30,7 +30,7 @@ public class ReservationRestControllerTest {
         Mockito.when(reservationFacade.create(TestDataFactory.reservationCreateDto)).thenReturn(TestDataFactory.reservationDetailedViewDto);
 
         // Act
-        ResponseEntity<ReservationDetailedViewDto> response = reservationRestController.create(TestDataFactory.reservationCreateDto);
+        ResponseEntity<?> response = reservationRestController.create(TestDataFactory.reservationCreateDto);
 
         // Assert
         assertThat(response).isEqualTo(ResponseEntity.status(HttpStatus.CREATED).body(TestDataFactory.reservationDetailedViewDto));
@@ -54,7 +54,7 @@ public class ReservationRestControllerTest {
         Mockito.when(reservationFacade.update(1L, TestDataFactory.reservationUpdateDto)).thenReturn(TestDataFactory.reservationDetailedViewDto);
 
         // Act
-        ResponseEntity<ReservationDetailedViewDto> response = reservationRestController.update(1L, TestDataFactory.reservationUpdateDto);
+        ResponseEntity<?> response = reservationRestController.update(1L, TestDataFactory.reservationUpdateDto);
 
         // Assert
         assertThat(response).isEqualTo(ResponseEntity.ok(TestDataFactory.reservationDetailedViewDto));
@@ -66,7 +66,7 @@ public class ReservationRestControllerTest {
         Mockito.when(reservationFacade.update(1L, TestDataFactory.reservationUpdateDto)).thenReturn(TestDataFactory.reservationDetailedViewDto);
 
         // Act
-        ResponseEntity<ReservationDetailedViewDto> response = reservationRestController.partialUpdate(1L, TestDataFactory.reservationUpdateDto);
+        ResponseEntity<?> response = reservationRestController.partialUpdate(1L, TestDataFactory.reservationUpdateDto);
 
         // Assert
         assertThat(response).isEqualTo(ResponseEntity.ok(TestDataFactory.reservationDetailedViewDto));

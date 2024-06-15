@@ -29,7 +29,7 @@ public class CourtRestControllerTest {
         Mockito.when(courtFacade.create(TestDataFactory.courtCreateDto)).thenReturn(TestDataFactory.courtViewDto);
 
         // Act
-        ResponseEntity<CourtViewDto> response = courtRestController.create(TestDataFactory.courtCreateDto);
+        ResponseEntity<?> response = courtRestController.create(TestDataFactory.courtCreateDto);
 
         // Assert
         assertThat(response).isEqualTo(ResponseEntity.status(HttpStatus.CREATED).body(TestDataFactory.courtViewDto));
