@@ -64,6 +64,9 @@ public class ReservationService {
         if (existingReservation == null) {
             throw new ResourceNotFoundException("Reservation with id " + newReservation.getId() + " does not exist");
         }
+        if (!newReservation.getDateTo().isAfter(newReservation.getDateFrom())) {
+            throw new IllegalArgumentException("End date must be after start date");
+        }
         newReservation.setCourt(Objects.requireNonNullElse(newReservation.getCourt(), existingReservation.getCourt()));
         newReservation.setCustomer(Objects.requireNonNullElse(newReservation.getCustomer(), existingReservation.getCustomer()));
         newReservation.setDateFrom(Objects.requireNonNullElse(newReservation.getDateFrom(), existingReservation.getDateFrom()));

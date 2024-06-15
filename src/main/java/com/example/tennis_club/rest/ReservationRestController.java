@@ -82,7 +82,13 @@ public class ReservationRestController {
             })
     @PutMapping("/{id}")
     public ResponseEntity<ReservationDetailedViewDto> update(@PathVariable("id") Long reservationId, @RequestBody ReservationUpdateDto reservation) {
-        return ResponseEntity.ok(reservationFacade.update(reservationId, reservation));
+        try {
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(reservationFacade.update(reservationId, reservation));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     /**
@@ -98,7 +104,13 @@ public class ReservationRestController {
             })
     @PatchMapping("/{id}")
     public ResponseEntity<ReservationDetailedViewDto> partialUpdate(@PathVariable("id") Long reservationId, @RequestBody ReservationUpdateDto reservation) {
-        return ResponseEntity.ok(reservationFacade.update(reservationId, reservation));
+        try {
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(reservationFacade.update(reservationId, reservation));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     /**
