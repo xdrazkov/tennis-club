@@ -64,13 +64,15 @@ public class CourtRestController {
                     @ApiResponse(responseCode = "201"),
             })
     @PostMapping("/")
-    public ResponseEntity<CourtViewDto> create(@RequestBody CourtCreateDto court) {
+    public ResponseEntity<?> create(@RequestBody CourtCreateDto court) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(courtFacade.create(court));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Invalid request: " + e.getMessage());
         }
     }
 

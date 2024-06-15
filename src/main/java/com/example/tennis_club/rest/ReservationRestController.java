@@ -45,13 +45,15 @@ public class ReservationRestController {
                     @ApiResponse(responseCode = "201"),
             })
     @PostMapping("/")
-    public ResponseEntity<ReservationDetailedViewDto> create(@RequestBody ReservationCreateDto reservation) {
+    public ResponseEntity<?> create(@RequestBody ReservationCreateDto reservation) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(reservationFacade.create(reservation));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Invalid request: " + e.getMessage());
         }
     }
 
@@ -81,13 +83,15 @@ public class ReservationRestController {
                     @ApiResponse(responseCode = "200"),
             })
     @PutMapping("/{id}")
-    public ResponseEntity<ReservationDetailedViewDto> update(@PathVariable("id") Long reservationId, @RequestBody ReservationUpdateDto reservation) {
+    public ResponseEntity<?> update(@PathVariable("id") Long reservationId, @RequestBody ReservationUpdateDto reservation) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(reservationFacade.update(reservationId, reservation));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Invalid request: " + e.getMessage());
         }
     }
 
@@ -103,13 +107,15 @@ public class ReservationRestController {
                     @ApiResponse(responseCode = "200"),
             })
     @PatchMapping("/{id}")
-    public ResponseEntity<ReservationDetailedViewDto> partialUpdate(@PathVariable("id") Long reservationId, @RequestBody ReservationUpdateDto reservation) {
+    public ResponseEntity<?> partialUpdate(@PathVariable("id") Long reservationId, @RequestBody ReservationUpdateDto reservation) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(reservationFacade.update(reservationId, reservation));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Invalid request: " + e.getMessage());
         }
     }
 
