@@ -19,6 +19,7 @@ Technologies used:
 - Swagger
 - JUnit
 - Mockito
+- Liquibase
 
 
 ### How to run the application
